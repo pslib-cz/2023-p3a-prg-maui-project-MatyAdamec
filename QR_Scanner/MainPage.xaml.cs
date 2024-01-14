@@ -54,9 +54,5 @@ public partial class MainPage : ContentPage
         await Navigation.PushAsync(new DatabasePage());
     }    
     
-    private async void OnViewSettings(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new DatabasePage());
-    }
 
 }
