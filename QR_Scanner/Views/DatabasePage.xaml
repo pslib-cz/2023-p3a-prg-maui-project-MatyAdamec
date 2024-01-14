@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QR_Scanner.Views.DatabasePage"
+             Title="DatabasePage">
+    
+    
+    <StackLayout>
+        <!-- Nadpis stránky -->
+        <Label Text="Scanned QR Codes" 
+               HorizontalOptions="Center" 
+               FontSize="Large"/>
+
+        <!-- Seznam skenovaných QR kódů -->
+        <ListView x:Name="qrCodeListView"
+                  ItemsSource="{Binding ScannedQRCodes}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Link}" 
+                                   HorizontalOptions="StartAndExpand"/>
+                            <Label Text="{Binding ScanDate, Converter={StaticResource DateTimeToDateStringConverter}}" 
+                                   HorizontalOptions="End"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>
