@@ -22,7 +22,8 @@
 
         <!-- Zobrazení odkazu po skenování -->
         <Label x:Name="resultLabel" 
-               HorizontalOptions="Center"/>
+               HorizontalOptions="Center"
+        />
         
         <Button Text="show scans"
                 Clicked="OnViewScans"/>

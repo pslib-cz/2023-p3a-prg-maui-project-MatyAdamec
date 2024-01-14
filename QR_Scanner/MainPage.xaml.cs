@@ -1,5 +1,6 @@
 ﻿using QR_Scanner.Models;
 using QR_Scanner.Views;
+using System.Windows.Input;
 using ZXing.Net.Maui;
 
 namespace QR_Scanner;
@@ -24,15 +25,22 @@ public partial class MainPage : ContentPage
 
         Dispatcher.DispatchAsync(async () =>
         {
-            await DisplayAlert("Barcode Detected", first.Value, "OK");
+            bool openInBrowser = await DisplayAlert("Barcode Detected", first.Value, "Open In Browser", "OK");
+            if (openInBrowser)
+            {
+                await Launcher.OpenAsync(new Uri(first.Value));
+            }
         });
+        Device.BeginInvokeOnMainThread(() => {
+            resultLabel.Text = first.Value;
+        });
+
         using (var db = new QRCodeDatabaseContext())
         {
             db.Database.EnsureCreated();
         }
         SaveToDatabase(first.Value);
 
-        //resultLabel.Text = first.Value;
 
     }
 

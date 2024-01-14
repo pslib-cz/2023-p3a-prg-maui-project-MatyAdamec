@@ -27,13 +27,11 @@ namespace QR_Scanner.ViewModels
         {
             if (scanToDelete != null)
             {
-                // Předpokládáme, že máte metodu pro smazání záznamu z databáze
                 var db = new QRCodeDatabaseContext();
                 db.QRCodeScans.Remove(scanToDelete);
                 db.SaveChanges();
 
                 Console.WriteLine(db.QRCodeScans);
-                // Aktualizace kolekce
                 ScannedQRCodes.Remove(scanToDelete);
             }
         }
