@@ -12,6 +12,7 @@ public partial class MainPage : ContentPage
         InitializeComponent();
     }
 
+    bool isScanning = true;
 
     private void OnBarcodeDetected(object sender, BarcodeDetectionEventArgs e)
     {
@@ -19,27 +20,38 @@ public partial class MainPage : ContentPage
 
         if (first == null)
         {
-            resultLabel.Text = "No barcode detected...";
             return;
         }
 
-        Dispatcher.DispatchAsync(async () =>
+        if (isScanning)
         {
-            bool openInBrowser = await DisplayAlert("Barcode Detected", first.Value, "Open In Browser", "OK");
-            if (openInBrowser)
+            isScanning= false;
+            Dispatcher.DispatchAsync(async () =>
             {
-                await Launcher.OpenAsync(new Uri(first.Value));
-            }
-        });
-        Device.BeginInvokeOnMainThread(() => {
-            resultLabel.Text = first.Value;
-        });
+                bool openInBrowser = await DisplayAlert("Barcode Detected", first.Value, "Open In Browser", "OK");
+                if (openInBrowser)
+                {
+                    await Launcher.OpenAsync(new Uri(first.Value));
+                }
+                else
+                {
+                isScanning= true;
 
-        using (var db = new QRCodeDatabaseContext())
-        {
-            db.Database.EnsureCreated();
+                }
+            });
+
+            MainThread.BeginInvokeOnMainThread(() => {
+                resultLabel.Text = first.Value;
+            });
+
+            using (var db = new QRCodeDatabaseContext())
+            {
+                db.Database.EnsureCreated();
+            }
+            SaveToDatabase(first.Value);
+
+
         }
-        SaveToDatabase(first.Value);
 
 
     }

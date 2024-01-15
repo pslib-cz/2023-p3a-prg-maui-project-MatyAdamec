@@ -15,13 +15,22 @@ namespace QR_Scanner.ViewModels
     {
         public ObservableCollection<QRCodeScan> ScannedQRCodes { get; private set; }
         public ICommand DeleteScanCommand { get; }
+        public ICommand ShowOnWebCommand { get; }
 
         public ViewModel()
         {
             ScannedQRCodes = new ObservableCollection<QRCodeScan>();
             DeleteScanCommand = new Command<QRCodeScan>(DeleteScan);
+            ShowOnWebCommand = new Command<QRCodeScan>(ShowOnWeb);
         }
 
+        private void ShowOnWeb(QRCodeScan scanToShow)
+        {
+            if (scanToShow != null)
+            {
+                Launcher.OpenAsync(new Uri(scanToShow.Link));
+            }
+        }
 
         private void DeleteScan(QRCodeScan scanToDelete)
         {

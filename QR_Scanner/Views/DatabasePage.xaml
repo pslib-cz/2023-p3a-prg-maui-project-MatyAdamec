@@ -23,8 +23,12 @@
                                    HorizontalOptions="StartAndExpand"/>
                             <Label Text="{Binding ScanDate, Converter={StaticResource DateTimeToDateStringConverter}}" 
                                    HorizontalOptions="Center"/>
-                            <Button Text="Smazat"
+                            <Button Text="Delete"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ViewModel}}, Path=DeleteScanCommand}"
+                                CommandParameter="{Binding .}" 
+                                HorizontalOptions="End"/>                            
+                            <Button Text="Show Website"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ViewModel}}, Path=ShowOnWebCommand}"
                                 CommandParameter="{Binding .}" 
                                 HorizontalOptions="End"/>
 
