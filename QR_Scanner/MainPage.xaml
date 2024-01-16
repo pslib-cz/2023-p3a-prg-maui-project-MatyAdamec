@@ -6,13 +6,11 @@
              Title="QR Code Scanner">
 
     <StackLayout>
-        <!-- Nadpis stránky -->
-        <Label Text="QR Code Scanner" 
+        <Label Text="Scan QR Codes" 
                VerticalOptions="Center" 
                HorizontalOptions="Center" 
                FontSize="Large"/>
 
-        <!-- Komponenta pro skenování QR kódu -->
         <zxing:CameraBarcodeReaderView 
             x:Name="barcodeReader"
             HorizontalOptions="FillAndExpand" 
@@ -20,7 +18,6 @@
             BarcodesDetected="OnBarcodeDetected"/>
         
 
-        <!-- Zobrazení odkazu po skenování -->
         <Label x:Name="resultLabel" 
                HorizontalOptions="Center"
         />
