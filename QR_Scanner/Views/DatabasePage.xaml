@@ -4,33 +4,57 @@
              xmlns:vm="clr-namespace:QR_Scanner.ViewModels"
              x:Class="QR_Scanner.Views.DatabasePage"
              Title="DatabasePage">
-    
-    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BasicButtonStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="Margin" Value="10,0,0,0"/>
+            </Style>
+            <Style x:Key="DangerButtonStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="BackgroundColor" Value="Red"/>
+            </Style>
+            <Style x:Key="Container" TargetType="StackLayout">
+                <Setter Property="Padding" Value="10,0"/>
+            </Style>
+            <Style x:Key="Text" TargetType="Label">
+                <Setter Property="Padding" Value="0,10"/>
+            </Style>            
+            <Style x:Key="Date" TargetType="Label">
+                <Setter Property="Padding" Value="0,25,0,0"/>
+                <Setter Property="Scale" Value=".7"/>
+            </Style>
+            
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <StackLayout>
-        <!-- Nadpis stránky -->
         <Label Text="Scanned QR Codes" 
                HorizontalOptions="Center" 
                FontSize="Large"/>
 
-        <!-- Seznam skenovaných QR kódů -->
         <ListView x:Name="qrCodeListView"
                   ItemsSource="{Binding ScannedQRCodes}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Orientation="Horizontal">
+                        <StackLayout Orientation="Horizontal" Style="{StaticResource Container}">
                             <Label Text="{Binding Link}" 
-                                   HorizontalOptions="StartAndExpand"/>
+                                   HorizontalOptions="StartAndExpand"
+                                   Style="{StaticResource Text}"/>
                             <Label Text="{Binding ScanDate, Converter={StaticResource DateTimeToDateStringConverter}}" 
-                                   HorizontalOptions="Center"/>
+                                   HorizontalOptions="End"
+                                   Style="{StaticResource Date}"/>
                             <Button Text="Delete"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ViewModel}}, Path=DeleteScanCommand}"
                                 CommandParameter="{Binding .}" 
-                                HorizontalOptions="End"/>                            
-                            <Button Text="Show Website"
+                                HorizontalOptions="End"
+                                Style="{StaticResource DangerButtonStyle}"/>
+                            <Button Text="Open"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ViewModel}}, Path=ShowOnWebCommand}"
                                 CommandParameter="{Binding .}" 
-                                HorizontalOptions="End"/>
+                                HorizontalOptions="End"
+                                Style="{StaticResource BasicButtonStyle}"/>
 
                         </StackLayout>
                     </ViewCell>
